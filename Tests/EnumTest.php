@@ -1,22 +1,22 @@
 <?php
 
+namespace Eud\ToolBundle\Tests\Enum;
 
-require_once '../load.php';
-load('./lib/enum.php');
+use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
-
+require_once("/srv/http/trouve_tout/src/Eud/ToolBundle/Service/enum.php");
 
 enum("type_a", array("a1", "a2", "a3"));
 enum("type_b", array("a1", "a2", "b3"));
 
 
-class EnumTest extends PHPUnit_Framework_TestCase
+class EnumTest extends \PHPUnit_Framework_TestCase
 {
 	protected function setUp()
 	{
-		$this->ta_a2 = type_a::$a2;
-		$this->tb_a2 = type_b::$a2;
-		$this->tb_b3 = type_b::$b3;
+		$this->ta_a2 = \type_a::$a2;
+		$this->tb_a2 = \type_b::$a2;
+		$this->tb_b3 = \type_b::$b3;
 	}
 
 	protected function assertPreConditions()
@@ -25,9 +25,9 @@ class EnumTest extends PHPUnit_Framework_TestCase
 
 	public function testStrictComparaison()
 	{
-		$this->assertTrue(type_a::$a1 !== type_a::$a2);
-		$this->assertTrue($this->ta_a2 === type_a::$a2);
-		$this->assertTrue($this->ta_a2 !== type_a::$a3);
+		$this->assertTrue(\type_a::$a1 !== \type_a::$a2);
+		$this->assertTrue($this->ta_a2 === \type_a::$a2);
+		$this->assertTrue($this->ta_a2 !== \type_a::$a3);
 		$this->assertTrue($this->ta_a2 !== $this->tb_a2);
 	}
 

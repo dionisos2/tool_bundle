@@ -5,8 +5,20 @@
  *
  * @api
  */
-class data_checking
+class DataChecking
 {
+
+    /**
+     * Return true if $x is a float or a int
+     *
+     * @param mixed $x
+     *
+     * @return boolean
+     */     
+    public function isFloatOrInt($x)
+    {
+        return (is_float($x) || is_int($x));
+    }
 
     /**
      * @param mixed $x
@@ -14,7 +26,7 @@ class data_checking
      *
      * @return boolean true when $x is set and equal to $v
      */
-    public function isset_and_equal($x,$v)
+    public function issetAndEqual($x, $v)
     {
         return isset($x) and ($x === $v);
     }
@@ -26,7 +38,7 @@ class data_checking
      *
      * @return boolean
      */
-    function is_integer($text)
+    public function isInteger($text)
     {
         $text = strval($text);
         if ($text === '') {
@@ -51,7 +63,7 @@ class data_checking
      *
      * @return boolean
      */
-    function numbers($text)
+    public function numbers($text)
     {
         $text = (string)$text;
         return preg_match('/^\d+$/',$text); 
@@ -66,7 +78,7 @@ class data_checking
      *
      * @return boolean
      */     
-    function key_exists_and_equal($tab, $key, $value)
+    public function keyExistsAndEqual($tab, $key, $value)
     {
         return array_key_exists($key, $tab) and ($tab[$key] === $value);
     }
@@ -78,7 +90,7 @@ class data_checking
      *
      * @return mixed 
      */     
-    function last_key(array $array)
+    public function lastKey(array $array)
     {
         end($array);
         $key = key($array);
