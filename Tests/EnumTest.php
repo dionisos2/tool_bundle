@@ -4,7 +4,7 @@ namespace Eud\ToolBundle\Tests\Enum;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
-require_once("/srv/http/trouve_tout/src/Eud/ToolBundle/Service/enum.php");
+require_once("src/Eud/ToolBundle/Service/enum.php");
 
 enum("type_a", array("a1", "a2", "a3"));
 enum("type_b", array("a1", "a2", "b3"));

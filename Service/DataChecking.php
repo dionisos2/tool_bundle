@@ -1,5 +1,7 @@
 <?php
 
+namespace Eud\ToolBundle\Service;
+
 /**
  * tool for manipuling different types
  *
@@ -21,24 +23,13 @@ class DataChecking
     }
 
     /**
-     * @param mixed $x
-     * @param mixed $v
-     *
-     * @return boolean true when $x is set and equal to $v
-     */
-    public function issetAndEqual($x, $v)
-    {
-        return isset($x) and ($x === $v);
-    }
-
-    /**
      * Returns true if $text is strictly convertible in integer.
      *
      * @param string $text
      *
      * @return boolean
      */
-    public function isInteger($text)
+    public function isConvertIntoInt($text)
     {
         $text = strval($text);
         if ($text === '') {
@@ -51,11 +42,11 @@ class DataChecking
             return false;
         }
 
-        return chiffres($text);
+        return $this->isNumbers($text);
     }
 
     /** 
-     * indique si la chaine ne contient que des chiffres.
+     * indique si la chaine ou le nombre ne contient que des chiffres.
      *
      * contrairement à is_int, n'exige pas que l'on ait une donnée de type "int".
      *
@@ -63,10 +54,10 @@ class DataChecking
      *
      * @return boolean
      */
-    public function numbers($text)
+    public function isNumbers($text)
     {
         $text = (string)$text;
-        return preg_match('/^\d+$/',$text); 
+        return preg_match('/^\d+$/',$text) === 1; 
     }
 
     /**
