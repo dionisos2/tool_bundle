@@ -3,11 +3,10 @@
 namespace Eud\ToolBundle\Tests\Enum;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use Eud\ToolBundle\Service\Enum;
 
-require_once("src/Eud/ToolBundle/Service/enum.php");
-
-enum("type_a", array("a1", "a2", "a3"));
-enum("type_b", array("a1", "a2", "b3"));
+Enum::enum("type_a", array("a1", "a2", "a3"));
+Enum::enum("type_b", array("a1", "a2", "b3"));
 
 
 class EnumTest extends \PHPUnit_Framework_TestCase

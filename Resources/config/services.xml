@@ -17,4 +17,12 @@
         </service>
     </services>
     -->
+
+    <services>
+        <service id="tool.assert_data_type" class="Eud\ToolBundle\Service\AssertDataType">
+        </service>
+
+		<service id="tool.data_checking" class="Eud\ToolBundle\Service\DataChecking">
+        </service>
+    </services>
 </container>
