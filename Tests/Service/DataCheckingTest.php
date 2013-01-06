@@ -1,6 +1,6 @@
 <?php
 
-namespace Eud\ToolBundle\Tests\DataChecking;
+namespace Eud\ToolBundle\Tests\Service;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Eud\ToolBundle\Service\DataChecking as DataChecking;

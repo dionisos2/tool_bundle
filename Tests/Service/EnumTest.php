@@ -1,6 +1,6 @@
 <?php
 
-namespace Eud\ToolBundle\Tests\Enum;
+namespace Eud\ToolBundle\Tests\Service;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Eud\ToolBundle\Service\Enum;
