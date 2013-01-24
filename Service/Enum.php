@@ -40,11 +40,16 @@ abstract class Enum
             throw new \InvalidArgumentException('the first argument $enumName, have to be a string');
         }
 
-        if(in_array($enumName, static::$list_of_elements)) {
+        if(in_array($enumName, static::$listOfElements)) {
             return static::$$enumName;
         } else {
             return null;
         }
+    }
+
+    public static function getListOfElement()
+    {
+        return static::$listOfElements;
     }
 
     /**
@@ -77,14 +82,14 @@ abstract class Enum
 
         $dynamique_code = "use Eud\ToolBundle\Service\Enum as Enum;";
         $dynamique_code .= "class $name extends Enum {";
-        $dynamique_code .= 'public static $list_of_elements;';
+        $dynamique_code .= 'public static $listOfElements;';
         foreach ($elements as $element) {
             $dynamique_code .= "public static \$$element;";
         }
 
         $dynamique_code .= "}";
         $elements_in_string = "array('" . implode("','", $elements) . "')";
-        $dynamique_code .= "$name::\$list_of_elements = $elements_in_string;";
+        $dynamique_code .= "$name::\$listOfElements = $elements_in_string;";
         foreach ($elements as $element) {
             $dynamique_code .= "$name::\$$element = new $name(\"$element\");";
         }

@@ -23,6 +23,15 @@ class EnumTest extends \PHPUnit_Framework_TestCase
 	}
 
     /**
+     * @covers Enum::getListOfElement
+     */
+    public function testGetListOfElement()
+    {
+        $this->assertEquals(array("a1", "a2", "a3"), \type_a::getListOfElement());
+        $this->assertEquals(array("b1", "b2", "b3"), \type_b::getListOfElement());
+    }
+
+    /**
      * @covers Enum::getEnumerator
      */
     public function testGetEnumerator()
