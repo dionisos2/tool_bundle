@@ -35,10 +35,12 @@ class DataChecking
         if ($text === '') {
             return false;
         }
+
         if (in_array($text[0], array('-', '+')) ) {
-            $text = substr($text,1);
+            $text = substr($text, 1);
         }
-        if ($text === '') {
+
+        if ($text === '' or $text === false) {
             return false;
         }
 

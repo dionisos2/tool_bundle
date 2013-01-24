@@ -3,45 +3,58 @@
 namespace Eud\ToolBundle\Tests\Service;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
-use Eud\ToolBundle\Service\AssertDataType as AssertDataType;
+use Eud\ToolBundle\Service\AssertData;
 
 
-class AssertDataTypeTest extends \PHPUnit_Framework_TestCase
+class AssertDataTest extends \PHPUnit_Framework_TestCase
 {
 
 	protected function setUp()
 	{
-        $this->adt = new AssertDataType();
-	}
-
-	protected function assertPreConditions()
-	{
+        $this->ad = new AssertData();
 	}
 
     /**
-	 * @expectedException InvalidArgumentException
-	 */	 
-	public function testAssertStringWithInt()
-	{
-        $this->adt->AssertString(10);
-	}
-
-    public function testAssertStringWithString()
+	 * @expectedException DomainException
+	 */
+    public function testAssertTrueWithFalse()
     {
-        $this->adt->AssertString("10");
+        $this->ad->assertTrue(false);
+    }
+
+    public function testAssertTrueWithTrue()
+    {
+        $this->ad->assertTrue(true);
     }
 
     /**
 	 * @expectedException InvalidArgumentException
 	 */	
-    public function testAssertStringWithNull()
+    public function testAssertBoolWithWrongAcceptNull()
     {
-        $this->adt->AssertString(null);
+        $this->ad->assertBool(true, 0, 0);
     }
 
-    public function testAssertStringWithNull2()
+    /**
+	 * @expectedException InvalidArgumentException
+	 */	
+    public function testAssertStringWithNullWrong()
     {
-        $this->adt->AssertString(null, 0, true);
+        $this->ad->assertString(null);
+    }
+
+    /**
+	 * @expectedException InvalidArgumentException
+	 */	
+    public function testAssertStringWithNullWrong2()
+    {
+        $this->ad->assertString(null, 1);
+    }
+
+
+    public function testAssertStringWithNull()
+    {
+        $this->ad->assertString(null, 0, true);
     }
 
     /**
@@ -49,7 +62,7 @@ class AssertDataTypeTest extends \PHPUnit_Framework_TestCase
 	 */
     public function testAssertStringWithWrongIndex()
     {
-        $this->adt->AssertString(null, "10");
+        $this->ad->assertString(null, "10");
     }
 
     /**
@@ -57,12 +70,12 @@ class AssertDataTypeTest extends \PHPUnit_Framework_TestCase
 	 */	 
 	public function testAssertIntWithString()
 	{
-        $this->adt->AssertInt("10");
+        $this->ad->assertInt("10");
 	}
 
     public function testAssertIntWithInt()
     {
-        $this->adt->AssertInt(10);
+        $this->ad->assertInt(10);
     }
 
     /**
@@ -70,12 +83,12 @@ class AssertDataTypeTest extends \PHPUnit_Framework_TestCase
 	 */	 
 	public function testAssertBoolWithInt()
 	{
-        $this->adt->AssertBool(0);
+        $this->ad->assertBool(0);
 	}
 
     public function testAssertBoolWithBool()
     {
-        $this->adt->AssertBool(false);
+        $this->ad->assertBool(false);
     }
 
     /**
@@ -83,7 +96,7 @@ class AssertDataTypeTest extends \PHPUnit_Framework_TestCase
 	 */	 
 	public function testAssertFloatWithString()
 	{
-        $this->adt->AssertFloat("10");
+        $this->ad->assertFloat("10");
 	}
 
     /**
@@ -91,12 +104,12 @@ class AssertDataTypeTest extends \PHPUnit_Framework_TestCase
 	 */	
 	public function testAssertFloatWithInt()
 	{
-        $this->adt->AssertFloat(10);
+        $this->ad->assertFloat(10);
 	}
 
     public function testAssertFloatWithFloat()
     {
-        $this->adt->AssertFloat(10.5);
+        $this->ad->assertFloat(10.5);
     }
 
     /**
@@ -104,17 +117,17 @@ class AssertDataTypeTest extends \PHPUnit_Framework_TestCase
 	 */	 
 	public function testAssertFloatOrIntWithString()
 	{
-        $this->adt->AssertFloatOrInt("10");
+        $this->ad->assertFloatOrInt("10");
 	}
 
 	public function testAssertFloatOrIntWithInt()
 	{
-        $this->adt->AssertFloatOrInt(10);
+        $this->ad->assertFloatOrInt(10);
 	}
 
     public function testAssertFloatOrIntWithFloat()
     {
-        $this->adt->AssertFloatOrInt(10.5);
+        $this->ad->assertFloatOrInt(10.5);
     }
 
 }
