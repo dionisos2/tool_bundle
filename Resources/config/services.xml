@@ -24,5 +24,13 @@
 
 		<service id="tool.data_checking" class="Eud\ToolBundle\Service\DataChecking">
         </service>
+
+		<service id="tool.form.enum" class="Eud\ToolBundle\Form\EnumType">
+		  <tag name="form.type" alias="Tool_enum"/>
+        </service>
+
+		<service id="tool.form.choice_or_text" class="Eud\ToolBundle\Form\Type\ChoiceOrTextType">
+		  <tag name="form.type" alias="Tool_ChoiceOrText"/>
+        </service>
     </services>
 </container>

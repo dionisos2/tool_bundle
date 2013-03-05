@@ -32,6 +32,15 @@ class EnumTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @covers Enum::getListOfElement
+	 * @expectedException BadFunctionCallException
+     */
+    public function testGetListOfElementOnEnum()
+    {
+        Enum::getListOfElement();
+    }
+
+    /**
      * @covers Enum::getEnumerator
      */
     public function testGetEnumerator()
@@ -41,6 +50,16 @@ class EnumTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(\type_b::$b3, \type_b::getEnumerator("b3"));
         $this->assertEquals(null, \type_a::getEnumerator("dont_exist"));
     }
+
+    /**
+     * @covers Enum::getEnumerator
+	 * @expectedException BadFunctionCallException
+     */
+    public function testgetEnumeratorOnEnum()
+    {
+        Enum::getEnumerator('plop');
+    }
+
     /**
      * @covers Enum::__construct
      */

@@ -36,11 +36,15 @@ abstract class Enum
 
     public static function getEnumerator($enumName)
     {
-        if(!is_string($enumName)) {
+        if (!is_string($enumName)) {
             throw new \InvalidArgumentException('the first argument $enumName, have to be a string');
         }
 
-        if(in_array($enumName, static::$listOfElements)) {
+        if (get_called_class() === __CLASS__) {
+            throw new \BadFunctionCallException('getEnumerator can’t be call from the Enum abstract class, only from child');
+        }
+
+        if (in_array($enumName, static::$listOfElements)) {
             return static::$$enumName;
         } else {
             return null;
@@ -49,6 +53,10 @@ abstract class Enum
 
     public static function getListOfElement()
     {
+        if (get_called_class() === __CLASS__) {
+            throw new \BadFunctionCallException('getListOfElement can’t be call from the Enum abstract class, only from child');
+        }
+
         return static::$listOfElements;
     }
 
