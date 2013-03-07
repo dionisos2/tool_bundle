@@ -9,29 +9,36 @@ abstract class Enum
 {
     
     protected static $nbrId = 0;
-    protected $id;
-    protected $value;
+    protected $enumId;
+    protected $enumName;
+    protected $enumValue;
 
-    public function __construct($value = null)
+    public function __construct($enumName, $enumValue)
     {
-        $this->id = self::$nbrId;
-        $this->value = $value;
+        $this->enumId = self::$nbrId;
+        $this->enumName = $enumName;
+        $this->enumValue = $enumValue;
         Enum::$nbrId++;
     }
 
     public function __toString()
     {
-        return get_class($this) . ":" . $this->value . ":" . $this->id;
+        return get_class($this) . ":" . $this->enumName . ":" . $this->enumId;
     }
     
+    public function getName()
+    {
+        return $this->enumName;
+    }
+
     public function getValue()
     {
-        return $this->value;
+        return $this->enumValue;
     }
 
     public function getId()
     {
-        return $this->id;
+        return $this->enumId;
     }   
 
     public static function getEnumerator($enumName)
@@ -82,7 +89,11 @@ abstract class Enum
             throw new \InvalidArgumentException('the first argument $name, have to be a string');
         }
 
-        foreach ($elements as $element) {
+        if (array_keys($elements) == array_keys(array_keys($elements))) {
+            $elements = array_flip($elements);
+        }                
+
+        foreach ($elements as $element => $value) {
             if(!is_string($element)) {
                 throw new \InvalidArgumentException('second argument $elements, have to be array that contain only string');
             }
@@ -91,15 +102,21 @@ abstract class Enum
         $dynamique_code = "use Eud\ToolBundle\Service\Enum as Enum;";
         $dynamique_code .= "class $name extends Enum {";
         $dynamique_code .= 'public static $listOfElements;';
-        foreach ($elements as $element) {
+        foreach ($elements as $element => $value) {
             $dynamique_code .= "public static \$$element;";
         }
 
         $dynamique_code .= "}";
-        $elements_in_string = "array('" . implode("','", $elements) . "')";
+        $elements_in_string = "array('" . implode("','", array_keys($elements)) . "')";
         $dynamique_code .= "$name::\$listOfElements = $elements_in_string;";
-        foreach ($elements as $element) {
-            $dynamique_code .= "$name::\$$element = new $name(\"$element\");";
+        foreach ($elements as $element => $value) {
+            if (is_string($value)) {
+                $dynamique_code .= "$name::\$$element = new $name(\"$element\", \"$value\");";
+            } elseif(is_int($value) or is_float($value)) {
+                $dynamique_code .= "$name::\$$element = new $name(\"$element\", $value);";
+            } else {
+                throw new \InvalidArgumentException('the value of Enum have to be string, int, or float');
+            }
         }
 
         if(eval($dynamique_code)!==null) {

@@ -15,6 +15,7 @@ class ValidatorAwareTestCase extends \PHPUnit_Framework_TestCase
 
     protected function valide($object)
     {
+        echo static::$validator->validate($object);
         $this->assertEquals(0, static::$validator->validate($object)->count());
     }
 

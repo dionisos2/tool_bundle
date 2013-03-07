@@ -9,9 +9,20 @@ use Symfony\Component\Form\Exception\UnexpectedTypeException;
 
 class StringToChoiceOrTextTransformer implements DataTransformerInterface
 {
+    private $choices;
+
+    public function __construct(array $choices)
+    {
+        $this->choices = $choices;
+    }
+
     public function transform($value)
     {
-        return array('choice' => 'other', 'text' => '',);
+        if (in_array($value, $this->choices, true)) {
+            return array('choice' => $value, 'text' => '');
+        }
+
+        return array('choice' => 'other', 'text' => $value);
     }
 
     public function reverseTransform($value)

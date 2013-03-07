@@ -17,7 +17,7 @@ class ChoiceOrTextType extends AbstractType
                                                 'label' => ' '))
                 ->add('text', 'text', array('label' => 'or',
                                             'required' => false))
-                ->addViewTransformer(new StringToChoiceOrTextTransformer());
+                ->addViewTransformer(new StringToChoiceOrTextTransformer($options['choices']));
 
     }
 
