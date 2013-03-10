@@ -4,6 +4,8 @@ namespace Eud\ToolBundle\Service;
 
 /**
  * Abstract class on which are based the others enum class
+ *
+ * /!\ create enum in separate file for autoloading purpose /!\
  */ 
 abstract class Enum
 {
@@ -83,7 +85,7 @@ abstract class Enum
      *
      * @codeCoverageIgnore
      */ 
-    public static function enum($name, $elements)
+    public static function enum($name, $elements, $nameSpace)
     {
         if(!is_string($name)) {
             throw new \InvalidArgumentException('the first argument $name, have to be a string');
@@ -98,8 +100,13 @@ abstract class Enum
                 throw new \InvalidArgumentException('second argument $elements, have to be array that contain only string');
             }
         }
+        if ($nameSpace != null) {
+            $dynamique_code = 'namespace ' . $nameSpace . ';';
+        } else {
+            $dynamique_code = '';
+        }
 
-        $dynamique_code = "use Eud\ToolBundle\Service\Enum as Enum;";
+        $dynamique_code .= "use Eud\ToolBundle\Service\Enum as Enum;";
         $dynamique_code .= "class $name extends Enum {";
         $dynamique_code .= 'public static $listOfElements;';
         foreach ($elements as $element => $value) {
