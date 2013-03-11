@@ -2,6 +2,7 @@
 
 namespace Eud\ToolBundle\Tests;
 use Symfony\Component\Validator\Validation;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 class ValidatorAwareTestCase extends \PHPUnit_Framework_TestCase
 {
