@@ -11,7 +11,7 @@
 
     "require": {
         "php": ">=5.3.3",
-		"symfony/framework-standard-edition",
+        "symfony/framework-bundle": "2.2.*"
     },
     "config": {
         "bin-dir": "bin"
