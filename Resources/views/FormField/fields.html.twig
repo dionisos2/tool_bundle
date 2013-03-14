@@ -1,0 +1,10 @@
+{% extends 'form_div_layout.html.twig' %}
+
+{% block Tool_ChoiceOrText_widget %}
+{% spaceless %}
+{{ parent() }}
+
+{{ form_widget(form) }}
+
+{% endspaceless %}
+{% endblock %}
