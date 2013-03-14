@@ -1,3 +1,6 @@
+imports:
+    - { resource: @ToolBundle/Resources/config/services.xml }
+
 twig:
     form:
         resources:
