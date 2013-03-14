@@ -18,7 +18,7 @@
     },
     "minimum-stability": "dev",
     "autoload": {
-        "psr-0": { "": "Ukratio\\Bundle\\ToolBundle" }
+        "psr-0": { "": "Ukratio\\ToolBundle" }
     },
-    "target-dir": "Ukratio/Bundle/ToolBundle"
+    "target-dir": "Ukratio/ToolBundle"
 }
