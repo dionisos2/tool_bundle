@@ -1,6 +1,6 @@
 {
     "name": "ukratio/tool-bundle",
-	"type": "symfony-bundle"
+	"type": "symfony-bundle",
     "description": "some usefull tolls",
 	"license": "MIT",
 	"authors": [
