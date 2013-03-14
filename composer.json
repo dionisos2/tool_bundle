@@ -21,9 +21,4 @@
         "psr-0": { "": "Ukratio\\Bundle\\ToolBundle" }
     },
     "target-dir": "Ukratio/Bundle/DistributionBundle",
-    "extra": {
-        "branch-alias": {
-            "dev-master": "master"
-        }
-    }
 }
