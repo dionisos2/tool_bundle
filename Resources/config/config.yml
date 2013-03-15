@@ -1,4 +1,0 @@
-twig:
-    form:
-        resources:
-            - 'ToolBundle:FormField:fields.html.twig'
