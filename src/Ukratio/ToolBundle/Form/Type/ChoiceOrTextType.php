@@ -16,12 +16,13 @@ class ChoiceOrTextType extends AbstractType
         $builder->add('choice', 'choice', array('choices' => $options['choices'] + array('other' => 'other',), 
                                                 'label' => ' '));
 
+        $optionsText =  array('label' => 'or', 'required' => false);
+        
         if ($options['textType']) {
-            $builder->add('text', $options['textType'], array('label' => 'or',
-                                                'required' => false));
+            $optionsText = array_combine($optionsText, $options['options']);
+            $builder->add('text', $options['textType'], $optionsText);
         } else {
-            $builder->add('text', 'text', array('label' => 'or',
-                                                'required' => false));
+            $builder->add('text', 'text', $optionsText);
         }
 
         $builder->addViewTransformer(new StringToChoiceOrTextTransformer($options['choices']));
