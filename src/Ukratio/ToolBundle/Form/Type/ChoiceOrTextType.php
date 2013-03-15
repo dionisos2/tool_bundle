@@ -31,7 +31,8 @@ class ChoiceOrTextType extends AbstractType
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        $resolver->setDefaults(array('textType' => false));
+        $resolver->setDefaults(array('textType' => false,
+                                     'options' => array()));
         $resolver->setRequired(array('choices'));
         $resolver->setAllowedTypes(array('choices' => 'array'));
     }
