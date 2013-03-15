@@ -1,0 +1,16 @@
+services:
+        tool.assert_data_type:
+          class: Ukratio\ToolBundle\Service\AssertDataType
+
+        tool.data_checking:
+          class: Ukratio\ToolBundle\Service\DataChecking
+
+        tool.form.enum:
+          class: Ukratio\ToolBundle\Form\EnumType
+          tags:
+            - {name: form.type, alias: Tool_enum}
+
+        tool.form.choice_or_text:
+          class: Ukratio\ToolBundle\Form\Type\ChoiceOrTextType
+          tags:
+            - {name: form.type, alias: Tool_ChoiceOrText}
