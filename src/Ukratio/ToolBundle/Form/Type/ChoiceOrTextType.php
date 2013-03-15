@@ -34,7 +34,8 @@ class ChoiceOrTextType extends AbstractType
         $resolver->setDefaults(array('textType' => false,
                                      'options' => array()));
         $resolver->setRequired(array('choices'));
-        $resolver->setAllowedTypes(array('choices' => 'array'));
+        $resolver->setAllowedTypes(array('choices' => 'array',
+                                         'options' => 'array'));
     }
 
     public function getName()
