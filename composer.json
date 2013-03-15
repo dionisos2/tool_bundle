@@ -19,5 +19,5 @@
     "minimum-stability": "dev",
     "autoload": {
         "psr-0": { "Ukratio\\ToolBundle": "src/Ukratio/ToolBundle/" }
-    },
+    }
 }
