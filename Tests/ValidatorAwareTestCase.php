@@ -1,6 +1,6 @@
 <?php
 
-namespace Eud\ToolBundle\Tests;
+namespace Ukratio\ToolBundle\Tests;
 use Symfony\Component\Validator\Validation;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 

@@ -1,6 +1,6 @@
 <?php
  
-namespace Eud\ToolBundle\Validator;
+namespace Ukratio\ToolBundle\Validator;
  
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;

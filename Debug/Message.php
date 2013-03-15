@@ -1,6 +1,6 @@
 <?php
 
-namespace Eud\ToolBundle\Debug;
+namespace Ukratio\ToolBundle\Debug;
 
 /**
  * Just a stupid class for sending or echoing message while debuging

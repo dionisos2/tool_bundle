@@ -1,6 +1,6 @@
 <?php
 
-namespace Eud\ToolBundle;
+namespace Ukratio\ToolBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 

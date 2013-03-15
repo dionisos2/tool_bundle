@@ -1,11 +1,11 @@
 <?php
 
-namespace Eud\ToolBundle\Tests\Service;
+namespace Ukratio\ToolBundle\Tests\Service;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
-use Eud\ToolBundle\Service\DataChecking as DataChecking;
+use Ukratio\ToolBundle\Service\DataChecking as DataChecking;
 
-class_alias("Eud\ToolBundle\Service\DataChecking", "DataChecking");
+class_alias("Ukratio\ToolBundle\Service\DataChecking", "DataChecking");
 
 class DataCheckingTest extends \PHPUnit_Framework_TestCase
 {

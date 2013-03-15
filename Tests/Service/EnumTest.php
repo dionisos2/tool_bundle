@@ -1,10 +1,10 @@
 <?php
 
-namespace Eud\ToolBundle\Tests\Service;
+namespace Ukratio\ToolBundle\Tests\Service;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
-use Eud\ToolBundle\Service\Enum;
-use Eud\ToolBundle\Tests\Service\AutoloadEnum;
+use Ukratio\ToolBundle\Service\Enum;
+use Ukratio\ToolBundle\Tests\Service\AutoloadEnum;
 
 
 Enum::enum('type_a', array('a1', 'a2', 'a3'), 'my\name\space');

@@ -1,7 +1,7 @@
 <?php
 
-namespace Eud\ToolBundle\Tests\Service;
+namespace Ukratio\ToolBundle\Tests\Service;
 
-use Eud\ToolBundle\Service\Enum;
+use Ukratio\ToolBundle\Service\Enum;
 
-Enum::enum('AutoloadEnum', array('a1', 'a2', 'a3'), 'Eud\ToolBundle\Tests\Service');
+Enum::enum('AutoloadEnum', array('a1', 'a2', 'a3'), 'Ukratio\ToolBundle\Tests\Service');

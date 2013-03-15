@@ -1,6 +1,6 @@
 <?php
 
-namespace Eud\ToolBundle\Service;
+namespace Ukratio\ToolBundle\Service;
 
 
 /**

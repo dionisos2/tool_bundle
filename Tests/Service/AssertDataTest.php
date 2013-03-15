@@ -1,9 +1,9 @@
 <?php
 
-namespace Eud\ToolBundle\Tests\Service;
+namespace Ukratio\ToolBundle\Tests\Service;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
-use Eud\ToolBundle\Service\AssertData;
+use Ukratio\ToolBundle\Service\AssertData;
 
 
 class AssertDataTest extends \PHPUnit_Framework_TestCase

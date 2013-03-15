@@ -1,12 +1,12 @@
 <?php
 
-namespace Eud\ToolBundle\Form\Type;
+namespace Ukratio\ToolBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-use Eud\ToolBundle\Form\DataTransformer\StringToChoiceOrTextTransformer;
+use Ukratio\ToolBundle\Form\DataTransformer\StringToChoiceOrTextTransformer;
 
 class ChoiceOrTextType extends AbstractType
 {

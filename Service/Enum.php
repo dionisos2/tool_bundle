@@ -1,6 +1,6 @@
 <?php
 
-namespace Eud\ToolBundle\Service;
+namespace Ukratio\ToolBundle\Service;
 
 /**
  * Abstract class on which are based the others enum class
@@ -106,7 +106,7 @@ abstract class Enum
             $dynamique_code = '';
         }
 
-        $dynamique_code .= "use Eud\ToolBundle\Service\Enum as Enum;";
+        $dynamique_code .= "use Ukratio\ToolBundle\Service\Enum as Enum;";
         $dynamique_code .= "class $name extends Enum {";
         $dynamique_code .= 'public static $listOfElements;';
         foreach ($elements as $element => $value) {
