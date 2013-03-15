@@ -19,7 +19,7 @@ class ChoiceOrTextType extends AbstractType
         $optionsText =  array('label' => 'or', 'required' => false);
         
         if ($options['textType']) {
-            $optionsText = array_combine($optionsText, $options['options']);
+            $optionsText = array_merge($optionsText, $options['options']);
             $builder->add('text', $options['textType'], $optionsText);
         } else {
             $builder->add('text', 'text', $optionsText);
