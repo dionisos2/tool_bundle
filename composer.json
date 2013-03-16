@@ -20,5 +20,5 @@
     "autoload": {
         "psr-0": { "Ukratio\\ToolBundle": "src/" }
     },
-    "target-dir": "\\"
+    "target-dir": ""
 }
