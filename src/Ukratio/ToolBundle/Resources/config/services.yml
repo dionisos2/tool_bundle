@@ -2,6 +2,9 @@ services:
         tool.assert_data_type:
           class: Ukratio\ToolBundle\Service\AssertDataType
 
+        tool.array_handling:
+          class: Ukratio\ToolBundle\Service\ArrayHandling
+
         tool.data_checking:
           class: Ukratio\ToolBundle\Service\DataChecking
 
