@@ -2,7 +2,6 @@
 
 namespace Ukratio\ToolBundle\Service;
 
-
 /**
  * tool for manipuling different types
  *
@@ -10,36 +9,83 @@ namespace Ukratio\ToolBundle\Service;
  */
 class ArrayHandling
 {
+
+    public function hasCycle($array, \Closure $getChilds = null, $dephBegin = 0)
+    {
+        throw new Exception('has Cycle is unimplemented');
+    }
+
+    public function hasTrueCycle($array, \Closure $getChilds)
+    {
+        $partition = $this->tarjanPartition($array, $getChilds);
+
+        if (count($partition) == count($array)) {
+            foreach($array as $value) {
+                //we look at autoreferencing singleton
+                if(in_array($value, $getChilds($value))) {
+                    return true;
+                }
+            }
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    public function tarjanPartition($array, \Closure $getChilds)
+    {
+        $result = array();
+        $indexDFS = 0;
+        $indexArray = array();
+        $stack = array();
+
+        foreach($array as $value) {
+            $id = $this->getId($value);
+            if (! isset($indexArray[$id])) {
+                $newResult = $this->tarjan($value, $indexDFS, $indexArray, $stack, $getChilds);
+                $result = array_merge($result, $newResult);
+            }
+        }
+        return $result;
+    }
+
+
     /**
      * Return a plane array with all the value of $array get recursively
      *
      * @param mixed $array the array
      * @param \Closure $getChilds function that have to return a array that will be recursively had to the result.
-     * @param int $deph the deph at will the function will begin to 'sum' the arrays
+     * @param int $dephBegin the deph at will the function will begin to 'sum' the arrays
      *
      * @return boolean
      */     
-    public function getValuesRecursively($array, \Closure $getChilds = null, $deph = 0)
+    public function getValuesRecursively($array, \Closure $getChilds = null, $dephBegin = 0)
     {
-        $self = $this;
-        if ($getChilds === null)
-        {
+        if ($getChilds === null) {
+            $self = $this;
             $getChilds = function ($array) use ($self)
             {
                 return $self->arrayIdentity($array);
             };
         }
 
+        if ($this->hasTrueCycle($array, $getChilds)) {
+            throw new \OutOfRangeException('they are cycle in the $array !');
+        } else {
+            return 10;
+        }
+
+
         $result = array();
 
         foreach($array as $value) {
             $subArray = $getChilds($value);
             if ($subArray === array()) {
-                if ($deph <= 0) {
+                if ($dephBegin <= 0) {
                     $result[] = $value;
                 }
             } else {
-                $result = array_merge($result, $this->getValuesRecursively($subArray, $getChilds, $deph - 1));
+                $result = array_merge($result, $this->getValuesRecursively($subArray, $getChilds, $dephBegin - 1));
             }
         }
 
@@ -53,5 +99,49 @@ class ArrayHandling
         } else {
             return array();
         }
+    }
+
+    private function getId($value)
+    {
+        if(gettype($value) == 'object') {
+            return spl_object_hash($value);
+        } else {
+            return 10;
+        }
+    }
+
+    private function tarjan($value, &$indexDFS, &$indexArray, &$stack, \Closure $getChilds)
+    {
+        $id = $this->getId($value);
+        $result = array();
+
+        $indexArray[$id] = array('index' => $indexDFS,
+                                 'lowLink' => $indexDFS);
+        $indexDFS++;
+        $stack[] = $value;
+        foreach($getChilds($value) as $childValue) {
+            $childId = spl_object_hash($childValue);
+            if(! isset($indexArray[$childId])) {
+                $newResult = $this->tarjan($childValue, $indexDFS, $indexArray, $stack, $getChilds);
+
+                $result = array_merge($result, $newResult);
+                $indexArray[$id]['lowLink'] = min($indexArray[$id]['lowLink'], $indexArray[$childId]['lowLink']);
+            } else {
+                $indexArray[$id]['lowLink'] = min($indexArray[$id]['lowLink'], $indexArray[$childId]['index']);
+            }
+        }
+
+        if ($indexArray[$id]['lowLink'] == $indexArray[$id]['index']) {
+
+            $result[] = array();
+            end($result);
+            $lastKey = key($result);
+            do {
+                $childValue = array_pop($stack);
+                $result[$lastKey][] = $childValue;
+            } while ($value !== $childValue);
+        }
+
+        return $result;        
     }
 }
