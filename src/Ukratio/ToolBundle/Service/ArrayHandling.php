@@ -19,17 +19,14 @@ class ArrayHandling
     {
         $partition = $this->tarjanPartition($array, $getChilds);
 
-        if (count($partition) == count($array)) {
-            foreach($array as $value) {
-                //we look at autoreferencing singleton
-                if(in_array($value, $getChilds($value))) {
-                    return true;
-                }
+        foreach($partition as $arrayValue) {
+            $value = current($arrayValue);
+
+            if ((count($arrayValue) > 1) or (in_array($value, $getChilds($value)))) {
+                return true;
             }
-            return false;
-        } else {
-            return true;
         }
+        return false;
     }
 
     public function tarjanPartition($array, \Closure $getChilds)
@@ -106,7 +103,7 @@ class ArrayHandling
         if(gettype($value) == 'object') {
             return spl_object_hash($value);
         } else {
-            return 10;
+            throw new \Exception('unimplemented getId for (not object)');
         }
     }
 
@@ -119,14 +116,15 @@ class ArrayHandling
                                  'lowLink' => $indexDFS);
         $indexDFS++;
         $stack[] = $value;
+
         foreach($getChilds($value) as $childValue) {
-            $childId = spl_object_hash($childValue);
+            $childId = $this->getId($childValue);
             if(! isset($indexArray[$childId])) {
                 $newResult = $this->tarjan($childValue, $indexDFS, $indexArray, $stack, $getChilds);
 
                 $result = array_merge($result, $newResult);
                 $indexArray[$id]['lowLink'] = min($indexArray[$id]['lowLink'], $indexArray[$childId]['lowLink']);
-            } else {
+            } elseif(in_array($childValue, $stack)) {
                 $indexArray[$id]['lowLink'] = min($indexArray[$id]['lowLink'], $indexArray[$childId]['index']);
             }
         }
@@ -136,6 +134,7 @@ class ArrayHandling
             $result[] = array();
             end($result);
             $lastKey = key($result);
+
             do {
                 $childValue = array_pop($stack);
                 $result[$lastKey][] = $childValue;

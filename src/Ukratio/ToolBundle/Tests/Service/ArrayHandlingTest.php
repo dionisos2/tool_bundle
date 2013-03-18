@@ -98,6 +98,9 @@ class ArrayHandlingTest extends \PHPUnit_Framework_TestCase
         $noCyclicGraph = array($this->noCyclicGraph1());
         $this->assertFalse($this->ah->hasTrueCycle($noCyclicGraph, $closure));
 
+        $noCyclicGraph = array($this->noCyclicGraph2());
+        $this->assertFalse($this->ah->hasTrueCycle($noCyclicGraph, $closure));
+
     }
 
     private function getClosure()
@@ -120,7 +123,7 @@ class ArrayHandlingTest extends \PHPUnit_Framework_TestCase
 
     private function noCyclicGraph2()
     {
-        $graphA = new Graph('graphA');
+        $graphA = new Graph('graphA_Nc');
         $graphB = new Graph('graphB');
         $graphB_ = new Graph('graphB_');
         $graphC = new Graph('graphC');
@@ -146,7 +149,7 @@ class ArrayHandlingTest extends \PHPUnit_Framework_TestCase
         $graphA3->addGraph($graphC3);
         $graphB3->addGraph($graphC3);
 
-        return $graph1;
+        return $graphA;
     }
 
     private function cyclicGraph1()
