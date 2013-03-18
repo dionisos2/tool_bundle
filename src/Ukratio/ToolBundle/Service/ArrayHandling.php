@@ -68,10 +68,7 @@ class ArrayHandling
 
         if ($this->hasTrueCycle($array, $getChilds)) {
             throw new \OutOfRangeException('they are cycle in the $array !');
-        } else {
-            return 10;
         }
-
 
         $result = array();
 
@@ -103,7 +100,7 @@ class ArrayHandling
         if(gettype($value) == 'object') {
             return spl_object_hash($value);
         } else {
-            throw new \Exception('unimplemented getId for (not object)');
+            return md5(serialize($value));
         }
     }
 

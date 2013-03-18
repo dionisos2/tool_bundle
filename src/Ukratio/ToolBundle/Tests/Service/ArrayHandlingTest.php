@@ -40,9 +40,8 @@ class ArrayHandlingTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers ArrayHandling::getValuesRecursively
-     * @expectedException PHPUnit_Framework_Error
      */
-	public function testgetValuesRecursively($data)
+	public function testgetValuesRecursively()
 	{
         $ah = $this->ah;
 
