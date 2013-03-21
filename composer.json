@@ -11,14 +11,17 @@
 
     "require": {
         "php": ">=5.3.3",
-        "symfony/framework-bundle": "2.2.*"
+        "symfony/framework-bundle": "2.2.*",
+        "doctrine/orm": ">=2.2.3,<2.4-dev",
+        "doctrine/doctrine-bundle": "1.2.*",
+		"doctrine/doctrine-fixtures-bundle": "dev-master",
+		"doctrine/data-fixtures": "@dev"
     },
     "config": {
         "bin-dir": "bin"
     },
     "minimum-stability": "dev",
     "autoload": {
-        "psr-0": { "Ukratio\\ToolBundle": "src/src" }
-    },
-    "target-dir": "src"
+        "psr-0": { "Ukratio\\ToolBundle": "src/" }
+    }
 }
