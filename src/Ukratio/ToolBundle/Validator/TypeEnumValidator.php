@@ -11,6 +11,10 @@ class TypeEnumValidator extends ConstraintValidator
     {
         $possibleValues =  implode('", "', call_user_func($constraint->enumName .'::getListOfElement'));
 
+        if ($value == null) { //accept null for nullable
+            return;
+        }
+
         if ((!is_string($value)) or (call_user_func($constraint->enumName . '::getEnumerator', $value) === null)) {
             $this->context->addViolation($constraint->message,
                                          array('{{ possibleValues }}' => '{"' . $possibleValues . '"}',
