@@ -2,6 +2,8 @@
 
 namespace Ukratio\ToolBundle\Service;
 
+
+
 /**
  * tool for manipuling different types
  *
@@ -10,13 +12,22 @@ namespace Ukratio\ToolBundle\Service;
 class ArrayHandling
 {
 
+    private $assertData;
+
+    public function __construct(AssertData $assertData)
+    {
+        $this->assertData = $assertData;
+    }
+
     public function hasCycle($array, \Closure $getChilds = null, $dephBegin = 0)
     {
-        throw new Exception('has Cycle is unimplemented');
+        $this->assertData->assertArray($array);
+        throw new Exception('has Cycle is not implemented');
     }
 
     public function hasTrueCycle($array, \Closure $getChilds)
     {
+        $this->assertData->assertArray($array);
         $partition = $this->tarjanPartition($array, $getChilds);
 
         foreach($partition as $arrayValue) {
@@ -31,6 +42,8 @@ class ArrayHandling
 
     public function tarjanPartition($array, \Closure $getChilds)
     {
+        $this->assertData->assertArray($array);
+
         $result = array();
         $indexDFS = 0;
         $indexArray = array();
@@ -46,7 +59,37 @@ class ArrayHandling
         return $result;
     }
 
+    public function getValuesRecursively($array, \Closure $getChilds, $dephBegin = 0, $dephEnd = null, &$arrayOfKnown = null)
+    {
+        $this->assertData->assertArray($array);
 
+        if ($arrayOfKnown == null) {
+            $arrayOfKnown = array();
+        }
+
+        $result = array();
+
+        if (($dephEnd !== null) and ($dephEnd <= 0)) {
+            return $result;
+        }
+
+        foreach($array as $value) {
+            if (! isset($arrayOfKnown[$this->getId($value)])) {
+                $arrayOfKnown[$this->getId($value)] = true;
+                if ($dephBegin <= 0) {
+                    $result[] = $value;
+                }
+                $childs = $getChilds($value);
+                if ($dephEnd !== null) {
+                    $dephEnd--;
+                }
+
+                $result = array_merge($result, $this->getValuesRecursively($childs, $getChilds, $dephBegin - 1, $dephEnd, $arrayOfKnown));
+            }
+        }
+        return $result;
+    }
+    
     /**
      * Return a plane array with all the value of $array get recursively
      *
@@ -56,8 +99,10 @@ class ArrayHandling
      *
      * @return boolean
      */     
-    public function getValuesRecursively($array, \Closure $getChilds = null, $dephBegin = 0)
+    public function getArrayValuesRecursively($array, \Closure $getChilds = null, $dephBegin = 0)
     {
+        $this->assertData->assertArray($array);
+
         if ($getChilds === null) {
             $self = $this;
             $getChilds = function ($array) use ($self)
@@ -79,7 +124,7 @@ class ArrayHandling
                     $result[] = $value;
                 }
             } else {
-                $result = array_merge($result, $this->getValuesRecursively($subArray, $getChilds, $dephBegin - 1));
+                $result = array_merge($result, $this->getArrayValuesRecursively($subArray, $getChilds, $dephBegin - 1));
             }
         }
 

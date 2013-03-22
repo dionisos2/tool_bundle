@@ -4,6 +4,7 @@ services:
 
         tool.array_handling:
           class: Ukratio\ToolBundle\Service\ArrayHandling
+          arguments: [@tool.assert_data_type]
 
         tool.data_checking:
           class: Ukratio\ToolBundle\Service\DataChecking

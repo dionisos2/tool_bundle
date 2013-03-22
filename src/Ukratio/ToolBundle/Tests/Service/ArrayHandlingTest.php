@@ -3,7 +3,8 @@
 namespace Ukratio\ToolBundle\Tests\Service;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
-use Ukratio\ToolBundle\Service\ArrayHandling as ArrayHandling;
+use Ukratio\ToolBundle\Service\ArrayHandling;
+use Ukratio\ToolBundle\Service\AssertData;
 
 class_alias("Ukratio\ToolBundle\Service\ArrayHandling", "ArrayHandling");
 
@@ -35,31 +36,55 @@ class ArrayHandlingTest extends \PHPUnit_Framework_TestCase
 
 	protected function setUp()
 	{
-        $this->ah = new ArrayHandling();
+        $this->ah = new ArrayHandling(new AssertData());
 	}
 
     /**
      * @covers ArrayHandling::getValuesRecursively
      */
-	public function testgetValuesRecursively()
+	public function testgetValuesRecursivelyWithGraph()
+    {
+        $getName = function (Graph $graph)
+        {
+            return $graph->name;
+        };
+        $getChilds = $this->getClosure();
+        
+        $ah = $this->ah;
+
+        $array = array($this->noCyclicGraph1());
+        $planeArray = array_map($getName, $this->ah->getValuesRecursively($array, $getChilds));
+        
+        $this->assertEquals(array('graph1'), $planeArray);
+
+        $array = array($this->noCyclicGraph2());
+        $planeArray = array_map($getName, $this->ah->getValuesRecursively($array, $getChilds));
+        
+        $this->assertEquals(array('graphA_Nc', 'graphB', 'graphC', 'graphA2', 'graphB2', 'graphC2', 'graphA3', 'graphC3', 'graphB3'), $planeArray);
+    }
+
+    /**
+     * @covers ArrayHandling::getArrayValuesRecursively
+     */
+	public function testgetArrayValuesRecursivelyWithArray()
 	{
         $ah = $this->ah;
 
         $array = $this->basicArray();
 
-        $planeArray = $this->ah->getValuesRecursively($array);
+        $planeArray = $this->ah->getArrayValuesRecursively($array);
 
         $this->assertEquals(array('A', 'B', 'CA', 'CB', 'CCA', 'CCB', 'CD', 'D', 'EA', 'EB'), $planeArray);
 
-        $planeArray = $this->ah->getValuesRecursively($array, null, 1);
+        $planeArray = $this->ah->getArrayValuesRecursively($array, null, 1);
 
         $this->assertEquals(array('CA', 'CB', 'CCA', 'CCB', 'CD', 'EA', 'EB'), $planeArray);
 
-        $planeArray = $this->ah->getValuesRecursively($array, null, 2);
+        $planeArray = $this->ah->getArrayValuesRecursively($array, null, 2);
 
         $this->assertEquals(array('CCA', 'CCB'), $planeArray);
 
-        $planeArray = $this->ah->getValuesRecursively($array, null, 3);
+        $planeArray = $this->ah->getArrayValuesRecursively($array, null, 3);
 
         $this->assertEquals(array(), $planeArray);
 	}
@@ -71,18 +96,18 @@ class ArrayHandlingTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers ArrayHandling::getValuesRecursively
+     * @covers ArrayHandling::getArrayValuesRecursively
      * @dataProvider getCyclicGraphs
      * @expectedException \OutOfRangeException
      */
     public function testGetValuesRecursivelyWithCycle($array)
     {
         $closure = $this->getClosure();
-        $this->ah->getValuesRecursively($array, $closure);
+        $this->ah->getArrayValuesRecursively($array, $closure);
     }
 
     /**
-     * @covers ArrayHandling::getValuesRecursively
+     * @covers ArrayHandling::hasTrueCycle
      */
     public function testHasTrueCycle()
     {

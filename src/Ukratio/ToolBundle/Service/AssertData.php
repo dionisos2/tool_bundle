@@ -54,6 +54,11 @@ class AssertData
         $this->assertType("FloatOrInt", is_float($x) || is_int($x) , $x, $index, $acceptNull);
     }
 
+    public function assertArray($x, $index = 0, $acceptNull = false)
+    {
+        $this->assertType("Array", is_array($x) , $x, $index, $acceptNull);
+    }
+
     /**
      * throw a InvalidArgumentException if $x is not a $type.
      *
