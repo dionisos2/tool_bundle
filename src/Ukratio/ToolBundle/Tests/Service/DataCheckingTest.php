@@ -30,6 +30,21 @@ class DataCheckingTest extends \PHPUnit_Framework_TestCase
 	}
 
     /**
+     * @covers DataChecking::isFloatOrInt
+     */
+	public function testIsFloatOrIntWithString()
+	{
+		$this->assertTrue($this->dt->isFloatOrInt(10, true));
+		$this->assertTrue($this->dt->isFloatOrInt(10.5, true));
+		$this->assertTrue($this->dt->isFloatOrInt("10", true));
+		$this->assertTrue($this->dt->isFloatOrInt("+10.", true));
+		$this->assertTrue($this->dt->isFloatOrInt("-10.5", true));
+		$this->assertTrue($this->dt->isFloatOrInt("0.5", true));
+		$this->assertFalse($this->dt->isFloatOrInt("+-0.5", true));
+		$this->assertFalse($this->dt->isFloatOrInt("0a", true));
+	}
+
+    /**
      * @covers DataChecking::isNumbers
      */    
     public function testIsNumbers()

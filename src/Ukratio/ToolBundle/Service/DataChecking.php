@@ -17,9 +17,14 @@ class DataChecking
      *
      * @return boolean
      */     
-    public function isFloatOrInt($x)
+    public function isFloatOrInt($x, $stringAccepted = false)
     {
-        return (is_float($x) || is_int($x));
+        if ($stringAccepted) {
+            $text = (string)$x;
+            return preg_match('/^[+-]?\d+\.?\d*$/',$text) === 1; 
+        } else {
+            return (is_float($x) || is_int($x));
+        }
     }
 
     /**
@@ -61,6 +66,7 @@ class DataChecking
         $text = (string)$text;
         return preg_match('/^\d+$/',$text) === 1; 
     }
+
 
     /**
      * check if the $key exist in the $tab, and is equal to $value
