@@ -1,11 +1,11 @@
 <?php
- 
+
 namespace Ukratio\ToolBundle\DataFixtures\ORM;
- 
+
 use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Ukratio\ToolBundle\Entity\SimpleEntity;
- 
+
 class TestDataBase implements FixtureInterface
 {
 

@@ -40,7 +40,7 @@ class SimpleEntity
     {
         return $this->id;
     }
-    
+
     public function getValue()
     {
         return $this->value;
@@ -50,5 +50,5 @@ class SimpleEntity
     {
         $this->value = $value;
     }
-    
+
 }
