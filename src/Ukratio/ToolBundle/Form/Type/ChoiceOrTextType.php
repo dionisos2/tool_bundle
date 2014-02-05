@@ -13,11 +13,11 @@ class ChoiceOrTextType extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('choice', 'choice', array('choices' => array('other' => 'other') + $options['choices'], 
+        $builder->add('choice', 'choice', array('choices' => array('other' => 'other') + $options['choices'],
                                                 'label' => ' '));
 
         $optionsText =  array('label' => 'or', 'required' => false);
-        
+
         if ($options['textType']) {
             $optionsText = array_merge($optionsText, $options['options']);
             $builder->add('text', $options['textType'], $optionsText);

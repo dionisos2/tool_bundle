@@ -11,7 +11,7 @@ use Ukratio\ToolBundle\Service\Enum;
 class EnumType extends AbstractType
 {
     private $enumChoices;
-    
+
     public function __construct($enumName)
     {
         $choices = call_user_func($enumName . '::getListOfElement');
