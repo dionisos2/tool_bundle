@@ -152,7 +152,7 @@ class EnumTest extends \PHPUnit_Framework_TestCase
 		$this->assertEquals('my\name\space\type_b:b2', $this->withoutId((string)$this->tb_b2));
 		$this->assertEquals('my\name\space\type_b:b3', $this->withoutId((string)$this->tb_b3));
 	}
-    
+
     /**
      * @covers Enum::getName
      */
